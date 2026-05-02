@@ -1,0 +1,30 @@
+<div class="container">
+  <div class="header">
+    <h1>My Products</h1>
+    <button mat-raised-button color="primary" routerLink="/seller/add-product">
+      <mat-icon>add</mat-icon> Add Product
+    </button>
+  </div>
+
+  <mat-spinner *ngIf="loading"></mat-spinner>
+
+  <div class="product-grid" *ngIf="!loading">
+    <mat-card *ngFor="let product of products" class="product-card">
+      <mat-card-header>
+        <mat-card-title>{{product.name}}</mat-card-title>
+        <mat-card-subtitle>{{product.price | currency}}</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <p>{{product.description}}</p>
+        <p>Stock: {{product.stock}}</p>
+        <p>Status: <span [class.active]="product.active">{{product.active ? 'Active' : 'Inactive'}}</span></p>
+      </mat-card-content>
+      <mat-card-actions align="end">
+        <button mat-button color="primary" [routerLink]="['/seller/edit-product', product.id]">EDIT</button>
+        <button mat-button color="warn" (click)="deleteProduct(product.id)">DELETE</button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+  
+  <p *ngIf="!loading && products.length === 0">No products found. Start by adding one!</p>
+</div>

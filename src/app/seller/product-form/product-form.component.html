@@ -1,0 +1,64 @@
+<div class="container">
+  <mat-card class="form-card">
+    <mat-card-header>
+      <mat-card-title>{{isEditMode ? 'Edit' : 'Add'}} Product</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <form [formGroup]="productForm" (ngSubmit)="onSubmit()">
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Product Name</mat-label>
+          <input matInput formControlName="name">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Description</mat-label>
+          <textarea matInput formControlName="description" rows="4"></textarea>
+        </mat-form-field>
+
+        <div class="row">
+          <mat-form-field appearance="outline">
+            <mat-label>Price</mat-label>
+            <input matInput type="number" formControlName="price">
+            <span matPrefix>$&nbsp;</span>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Stock</mat-label>
+            <input matInput type="number" formControlName="stock">
+          </mat-form-field>
+        </div>
+
+        <div class="image-section">
+          <h3>Product Images</h3>
+          <div class="image-input">
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>Image URL</mat-label>
+              <input matInput [(ngModel)]="imageUrl" [ngModelOptions]="{standalone: true}" placeholder="Enter image URL">
+              <button mat-icon-button matSuffix (click)="addImage()" type="button" [disabled]="!imageUrl">
+                <mat-icon>add</mat-icon>
+              </button>
+            </mat-form-field>
+          </div>
+          
+          <div class="image-gallery" *ngIf="productForm.get('images')?.value?.length > 0">
+            <div class="image-thumb" *ngFor="let img of productForm.get('images')?.value; let i = index">
+              <img [src]="img" alt="Product Image">
+              <button mat-icon-button color="warn" class="remove-btn" (click)="removeImage(i)" type="button">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <mat-checkbox formControlName="active">Active</mat-checkbox>
+
+        <div class="actions">
+          <button mat-button type="button" routerLink="/seller/products">CANCEL</button>
+          <button mat-raised-button color="primary" type="submit" [disabled]="productForm.invalid || loading">
+            {{isEditMode ? 'UPDATE' : 'CREATE'}}
+          </button>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

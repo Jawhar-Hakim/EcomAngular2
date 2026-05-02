@@ -1,0 +1,33 @@
+<div class="container">
+  <h1>Your Shopping Cart</h1>
+
+  <mat-spinner *ngIf="loading"></mat-spinner>
+
+  <div *ngIf="!loading && cart">
+    <div *ngIf="cart.items.length === 0" class="empty-cart">
+      <mat-icon class="huge-icon">shopping_cart</mat-icon>
+      <p>Your cart is empty.</p>
+      <button mat-raised-button color="primary" routerLink="/customer/catalog">GO SHOPPING</button>
+    </div>
+
+    <div *ngIf="cart.items.length > 0">
+      <mat-card *ngFor="let item of cart.items" class="cart-item">
+        <div class="item-content">
+          <div class="item-details">
+            <span class="item-name">{{item.product.name}}</span>
+            <span class="item-price">{{item.product.price | currency}} x {{item.quantity}}</span>
+          </div>
+          <span class="item-total">{{(item.product.price * item.quantity) | currency}}</span>
+          <button mat-icon-button color="warn" (click)="removeItem(item.id)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </div>
+      </mat-card>
+
+      <div class="cart-footer">
+        <h2>Total: {{getTotal() | currency}}</h2>
+        <button mat-raised-button color="primary" class="checkout-btn" [disabled]="loading || !cart?.items?.length" (click)="checkout()">CHECKOUT</button>
+      </div>
+    </div>
+  </div>
+</div>

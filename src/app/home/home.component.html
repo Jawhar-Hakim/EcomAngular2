@@ -1,0 +1,73 @@
+<div class="home-container">
+  <mat-card class="welcome-card">
+    <mat-card-header>
+      <mat-card-title>Welcome to E-Commerce</mat-card-title>
+      <mat-card-subtitle *ngIf="user">Hello, {{ user.firstName }} {{ user.lastName }}!</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <p *ngIf="!user">Please log in to see your dashboard.</p>
+      
+      <div *ngIf="loading" class="loading-spinner">
+        <mat-spinner diameter="40"></mat-spinner>
+      </div>
+
+      <div *ngIf="!loading && user && stats" class="stats-grid">
+        <!-- Admin Stats -->
+        <ng-container *ngIf="isAdmin">
+          <mat-card class="stat-item">
+            <mat-card-title>{{ stats.totalUsers }}</mat-card-title>
+            <mat-card-subtitle>Total Users</mat-card-subtitle>
+          </mat-card>
+          <mat-card class="stat-item">
+            <mat-card-title>{{ stats.totalSellers }}</mat-card-title>
+            <mat-card-subtitle>Total Sellers</mat-card-subtitle>
+          </mat-card>
+          <mat-card class="stat-item">
+            <mat-card-title>{{ stats.totalOrders }}</mat-card-title>
+            <mat-card-subtitle>Total Orders</mat-card-subtitle>
+          </mat-card>
+          <mat-card class="stat-item">
+            <mat-card-title>{{ stats.totalRevenue | currency }}</mat-card-title>
+            <mat-card-subtitle>Total Revenue</mat-card-subtitle>
+          </mat-card>
+        </ng-container>
+
+        <!-- Seller Stats -->
+        <ng-container *ngIf="isSeller">
+          <mat-card class="stat-item">
+            <mat-card-title>{{ stats.myProductsCount }}</mat-card-title>
+            <mat-card-subtitle>My Products</mat-card-subtitle>
+          </mat-card>
+          <mat-card class="stat-item">
+            <mat-card-title>{{ stats.pendingOrdersCount }}</mat-card-title>
+            <mat-card-subtitle>Pending Orders</mat-card-subtitle>
+          </mat-card>
+          <mat-card class="stat-item">
+            <mat-card-title>{{ stats.totalSales | currency }}</mat-card-title>
+            <mat-card-subtitle>Total Sales</mat-card-subtitle>
+          </mat-card>
+        </ng-container>
+
+        <!-- Customer Stats -->
+        <ng-container *ngIf="isCustomer">
+          <mat-card class="stat-item">
+            <mat-card-title>{{ stats.myOrdersCount }}</mat-card-title>
+            <mat-card-subtitle>My Orders</mat-card-subtitle>
+          </mat-card>
+          <mat-card class="stat-item">
+            <mat-card-title>{{ stats.cartItemsCount }}</mat-card-title>
+            <mat-card-subtitle>Items in Cart</mat-card-subtitle>
+          </mat-card>
+          <mat-card class="stat-item">
+            <mat-card-title>{{ stats.totalSpent | currency }}</mat-card-title>
+            <mat-card-subtitle>Total Spent</mat-card-subtitle>
+          </mat-card>
+        </ng-container>
+      </div>
+    </mat-card-content>
+    <mat-card-actions *ngIf="!user">
+      <button mat-raised-button color="primary" routerLink="/login">Login</button>
+      <button mat-button routerLink="/register">Register</button>
+    </mat-card-actions>
+  </mat-card>
+</div>

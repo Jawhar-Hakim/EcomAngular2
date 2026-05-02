@@ -1,0 +1,25 @@
+<div class="container">
+  <h1>Product Catalog</h1>
+  
+  <mat-spinner *ngIf="loading"></mat-spinner>
+
+  <div class="product-grid" *ngIf="!loading">
+    <mat-card *ngFor="let product of products" class="product-card">
+      <img mat-card-image [src]="product.images?.[0] || 'assets/placeholder.png'" alt="{{product.name}}">
+      <mat-card-header>
+        <mat-card-title>{{product.name}}</mat-card-title>
+        <mat-card-subtitle>{{product.price | currency}}</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <p class="description">{{product.description}}</p>
+        <p *ngIf="product.stock > 0">In Stock: {{product.stock}}</p>
+        <p *ngIf="product.stock <= 0" class="out-of-stock">Out of Stock</p>
+      </mat-card-content>
+      <mat-card-actions align="end">
+        <button mat-raised-button color="accent" (click)="addToCart(product)" [disabled]="product.stock <= 0">
+          <mat-icon>add_shopping_cart</mat-icon> ADD TO CART
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</div>
