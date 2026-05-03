@@ -44,6 +44,10 @@ const routes: Routes = [
     component: ProductFormComponent
   },
   {
+    path: 'seller/edit-product/:id',
+    component: ProductFormComponent
+  },
+  {
     path: 'seller/products',
     component: ProductListComponent
   },
