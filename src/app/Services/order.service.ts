@@ -10,19 +10,23 @@ export class OrderService {
 
   constructor(private http: HttpClient) {}
 
-  getSellerOrders(): Observable<any[]> {
-    return this.http.get<any[]>(`${this.baseUrl}/seller/all`);
+  getMyOrders(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.baseUrl}/my`);
   }
 
-  placeOrder(userId: number): Observable<any> {
-    return this.http.post(`${this.baseUrl}/${userId}`, {});
+  getSellerOrders(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.baseUrl}/seller`);
+  }
+
+  placeOrder(): Observable<any> {
+    return this.http.post(`${this.baseUrl}`, {});
   }
 
   updateOrderStatus(orderId: number, status: string): Observable<any> {
-    return this.http.patch(`${this.baseUrl}/${orderId}/status?status=${status}`, {});
+    return this.http.put(`${this.baseUrl}/${orderId}/status?status=${status}`, {});
   }
 
   cancelOrder(orderId: number): Observable<any> {
-    return this.http.post(`${this.baseUrl}/${orderId}/cancel`, {});
+    return this.http.put(`${this.baseUrl}/${orderId}/cancel`, {});
   }
 }

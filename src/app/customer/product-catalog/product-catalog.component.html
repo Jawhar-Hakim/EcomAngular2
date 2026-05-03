@@ -1,6 +1,36 @@
 <div class="container">
   <h1>Product Catalog</h1>
   
+  <div class="filters-container">
+    <mat-form-field appearance="outline">
+      <mat-label>Search</mat-label>
+      <input matInput [(ngModel)]="filters.keyword" (ngModelChange)="onFilterChange()" placeholder="Search products...">
+      <mat-icon matSuffix>search</mat-icon>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Category</mat-label>
+      <mat-select [(ngModel)]="filters.categoryId" (selectionChange)="onFilterChange()">
+        <mat-option [value]="null">All Categories</mat-option>
+        <mat-option *ngFor="let cat of categories" [value]="cat.id">
+          {{cat.name}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Min Price</mat-label>
+      <input matInput type="number" [(ngModel)]="filters.minPrice" (ngModelChange)="onFilterChange()">
+      <span matPrefix>$&nbsp;</span>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Max Price</mat-label>
+      <input matInput type="number" [(ngModel)]="filters.maxPrice" (ngModelChange)="onFilterChange()">
+      <span matPrefix>$&nbsp;</span>
+    </mat-form-field>
+  </div>
+
   <mat-spinner *ngIf="loading"></mat-spinner>
 
   <div class="product-grid" *ngIf="!loading">

@@ -23,14 +23,16 @@ export class CartComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.cartService.cart$.subscribe(cart => this.cart = cart);
     this.loadCart();
   }
+
+  couponCode = '';
 
   loadCart() {
     this.loading = true;
     this.cartService.getCart().subscribe({
-      next: (data) => {
-        this.cart = data;
+      next: () => {
         this.loading = false;
       },
       error: () => {
@@ -38,6 +40,45 @@ export class CartComponent implements OnInit {
         this.loading = false;
       }
     });
+  }
+
+  applyCoupon() {
+    if (!this.couponCode) return;
+    this.cartService.applyCoupon(this.couponCode).subscribe({
+      next: () => {
+        this.snackBar.open('Coupon applied', 'Close', { duration: 2000 });
+      },
+      error: (err) => this.snackBar.open(err.error?.message || 'Error applying coupon', 'Close', { duration: 3000 })
+    });
+  }
+
+  removeCoupon() {
+    this.cartService.removeCoupon().subscribe({
+      next: () => {
+        this.couponCode = '';
+        this.snackBar.open('Coupon removed', 'Close', { duration: 2000 });
+      },
+      error: () => this.snackBar.open('Error removing coupon', 'Close', { duration: 3000 })
+    });
+  }
+
+  get subTotal(): number {
+    if (!this.cart || !this.cart.items) return 0;
+    return this.cart.items.reduce((acc: number, item: any) => acc + (item.product.price * item.quantity), 0);
+  }
+
+  get discountAmount(): number {
+    if (!this.cart || !this.cart.coupon) return 0;
+    const sub = this.subTotal;
+    if (this.cart.coupon.type === 'PERCENT') {
+      return sub * (this.cart.coupon.value / 100);
+    } else {
+      return Math.min(this.cart.coupon.value, sub);
+    }
+  }
+
+  get totalAmount(): number {
+    return this.subTotal - this.discountAmount;
   }
 
   removeItem(itemId: number) {
@@ -59,7 +100,7 @@ export class CartComponent implements OnInit {
     }
 
     this.loading = true;
-    this.orderService.placeOrder(user.id).subscribe({
+    this.orderService.placeOrder().subscribe({
       next: (order) => {
         this.snackBar.open(`Order placed successfully! Order No: ${order.orderNumber}`, 'Close', { duration: 5000 });
         this.cart = null; // Clear local cart

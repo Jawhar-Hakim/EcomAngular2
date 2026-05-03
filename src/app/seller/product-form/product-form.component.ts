@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProductService } from '../../../Services/product.service';
+import { CategoryService } from '../../../Services/category.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
@@ -14,10 +15,12 @@ export class ProductFormComponent implements OnInit {
   isEditMode = false;
   productId?: number;
   loading = false;
+  categories: any[] = [];
 
   constructor(
     private fb: FormBuilder,
     public productService: ProductService,
+    private categoryService: CategoryService,
     private route: ActivatedRoute,
     private router: Router,
     private snackBar: MatSnackBar
@@ -28,7 +31,8 @@ export class ProductFormComponent implements OnInit {
       price: [0, [Validators.required, Validators.min(0.01)]],
       stock: [0, [Validators.required, Validators.min(0)]],
       active: [true],
-      images: [[]]
+      images: [[]],
+      categoryIds: [[]]
     });
   }
 
@@ -68,12 +72,20 @@ export class ProductFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.loadCategories();
     const id = this.route.snapshot.params['id'];
     if (id) {
       this.isEditMode = true;
       this.productId = id;
       this.loadProduct(id);
     }
+  }
+
+  loadCategories() {
+    this.categoryService.getAllCategories().subscribe({
+      next: (data) => this.categories = data,
+      error: () => this.snackBar.open('Error loading categories', 'Close', { duration: 3000 })
+    });
   }
 
   loadProduct(id: number) {

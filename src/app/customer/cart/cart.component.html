@@ -25,8 +25,27 @@
       </mat-card>
 
       <div class="cart-footer">
-        <h2>Total: {{getTotal() | currency}}</h2>
-        <button mat-raised-button color="primary" class="checkout-btn" [disabled]="loading || !cart?.items?.length" (click)="checkout()">CHECKOUT</button>
+        <div class="coupon-section">
+          <mat-form-field appearance="outline">
+            <mat-label>Coupon Code</mat-label>
+            <input matInput [(ngModel)]="couponCode" placeholder="Enter coupon">
+          </mat-form-field>
+          <button mat-button color="primary" (click)="applyCoupon()" [disabled]="!couponCode">Apply</button>
+          
+          <div *ngIf="cart.coupon" class="applied-coupon">
+            <span>Applied: <strong>{{cart.coupon.code}}</strong> ({{cart.coupon.discountPercentage}}%)</span>
+            <button mat-icon-button color="warn" (click)="removeCoupon()">
+              <mat-icon>close</mat-icon>
+            </button>
+          </div>
+        </div>
+
+        <div class="totals">
+          <p *ngIf="cart.coupon">Subtotal: {{subTotal | currency}}</p>
+          <p *ngIf="cart.coupon" class="discount">Discount: -{{discountAmount | currency}}</p>
+          <h2>Total: {{totalAmount | currency}}</h2>
+          <button mat-raised-button color="primary" class="checkout-btn" [disabled]="loading || !cart?.items?.length" (click)="checkout()">CHECKOUT</button>
+        </div>
       </div>
     </div>
   </div>

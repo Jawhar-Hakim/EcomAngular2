@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
+import { MatTableModule } from '@angular/material/table';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { UserComponent } from './user/user.component';
@@ -20,8 +20,9 @@ import {CartComponent} from "./customer/cart/cart.component";
 import { HomeComponent } from './home/home.component';
 import { UserManagementComponent } from './admin/user-management/user-management.component';
 import { SellerOrdersComponent } from './seller/seller-orders/seller-orders.component';
-import {MatTableModule} from '@angular/material/table';
-import {MatChipsModule} from '@angular/material/chips';
+import { CustomerOrdersComponent } from './customer/customer-orders/customer-orders.component';
+import { CategoryManagementComponent } from './admin/category-management/category-management.component';
+import { CouponManagementComponent } from './admin/coupon-management/coupon-management.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,10 @@ import {MatChipsModule} from '@angular/material/chips';
     CartComponent,
     HomeComponent,
     UserManagementComponent,
-    SellerOrdersComponent
+    SellerOrdersComponent,
+    CustomerOrdersComponent,
+    CategoryManagementComponent,
+    CouponManagementComponent
   ],
   imports: [
     BrowserModule,
@@ -46,8 +50,7 @@ import {MatChipsModule} from '@angular/material/chips';
     ReactiveFormsModule,
     BrowserAnimationsModule,
     MaterialModule,
-    MatTableModule,
-    MatChipsModule
+    MatTableModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true }

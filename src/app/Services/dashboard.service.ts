@@ -14,11 +14,11 @@ export class DashboardService {
     return this.http.get(`${this.baseUrl}/admin`);
   }
 
-  getSellerStats(sellerId: number): Observable<any> {
-    return this.http.get(`${this.baseUrl}/seller/${sellerId}`);
+  getSellerStats(): Observable<any> {
+    return this.http.get(`${this.baseUrl}/seller`);
   }
 
-  getCustomerStats(customerId: number): Observable<any> {
-    return this.http.get(`${this.baseUrl}/customer/${customerId}`);
+  getCustomerStats(): Observable<any> {
+    return this.http.get(`${this.baseUrl}/customer`);
   }
 }

@@ -1,0 +1,31 @@
+.container {
+    padding: 20px;
+}
+.management-grid {
+    display: grid;
+    grid-template-columns: 350px 1fr;
+    gap: 20px;
+    align-items: start;
+}
+.full-width {
+    width: 100%;
+}
+.form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 15px;
+}
+.loading-shade {
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+}
+table {
+    width: 100%;
+}
+@media (max-width: 900px) {
+    .management-grid {
+        grid-template-columns: 1fr;
+    }
+}

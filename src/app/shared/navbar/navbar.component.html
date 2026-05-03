@@ -8,10 +8,13 @@
     <button mat-button *ngIf="isSeller$ | async" routerLink="/seller/products">My Products</button>
     <button mat-button *ngIf="isSeller$ | async" routerLink="/seller/orders">Orders</button>
     <button mat-button *ngIf="isCustomer$ | async" routerLink="/customer/catalog">Shop</button>
+    <button mat-button *ngIf="isCustomer$ | async" routerLink="/customer/orders">My Orders</button>
     <button mat-button *ngIf="isCustomer$ | async" routerLink="/customer/cart">
-      <mat-icon matBadge="0" matBadgeColor="warn">shopping_cart</mat-icon>
+      <mat-icon [matBadge]="cartItemCount$ | async" matBadgeColor="warn">shopping_cart</mat-icon>
     </button>
     <button mat-button *ngIf="isAdmin$ | async" routerLink="/admin/users">Users</button>
+    <button mat-button *ngIf="isAdmin$ | async" routerLink="/admin/categories">Categories</button>
+    <button mat-button *ngIf="isAdmin$ | async" routerLink="/admin/coupons">Coupons</button>
   </ng-container>
   
   <ng-container *ngIf="!(authService.currentUser | async); else loggedIn">

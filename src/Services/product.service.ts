@@ -17,8 +17,8 @@ export class ProductService {
     return `${this.hostUrl}${imagePath.startsWith('/') ? '' : '/'}${imagePath}`;
   }
 
-  getAllProducts(): Observable<any> {
-    return this.http.get(this.baseUrl);
+  getAllProducts(params: any = {}): Observable<any> {
+    return this.http.get(this.baseUrl, { params });
   }
 
   getMyProducts(): Observable<any[]> {

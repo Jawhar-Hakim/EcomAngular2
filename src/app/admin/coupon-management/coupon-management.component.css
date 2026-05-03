@@ -1,0 +1,38 @@
+.container {
+    padding: 20px;
+}
+.management-grid {
+    display: grid;
+    grid-template-columns: 400px 1fr;
+    gap: 20px;
+    align-items: start;
+}
+.full-width {
+    width: 100%;
+}
+.row {
+    display: flex;
+    gap: 15px;
+}
+.row mat-form-field {
+    flex: 1;
+}
+.form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 15px;
+}
+.loading-shade {
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+}
+table {
+    width: 100%;
+}
+@media (max-width: 1000px) {
+    .management-grid {
+        grid-template-columns: 1fr;
+    }
+}

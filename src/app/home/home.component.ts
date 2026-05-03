@@ -36,9 +36,9 @@ export class HomeComponent implements OnInit {
     if (user.role === Role.ADMIN) {
       statsObservable = this.dashboardService.getAdminStats();
     } else if (user.role === Role.SELLER) {
-      statsObservable = this.dashboardService.getSellerStats(user.id);
+      statsObservable = this.dashboardService.getSellerStats();
     } else if (user.role === Role.CUSTOMER) {
-      statsObservable = this.dashboardService.getCustomerStats(user.id);
+      statsObservable = this.dashboardService.getCustomerStats();
     }
 
     if (statsObservable) {
