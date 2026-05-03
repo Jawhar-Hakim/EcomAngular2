@@ -10,6 +10,7 @@
 
   <div class="product-grid" *ngIf="!loading">
     <mat-card *ngFor="let product of products" class="product-card">
+      <img mat-card-image [src]="productService.getImageUrl(product.images?.[0])" alt="{{product.name}}" class="product-img">
       <mat-card-header>
         <mat-card-title>{{product.name}}</mat-card-title>
         <mat-card-subtitle>{{product.price | currency}}</mat-card-subtitle>

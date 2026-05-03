@@ -7,8 +7,15 @@ import { Observable } from 'rxjs';
 })
 export class ProductService {
   private baseUrl = 'http://localhost:8080/api/products';
+  private hostUrl = 'http://localhost:8080';
 
   constructor(private http: HttpClient) {}
+
+  getImageUrl(imagePath: string): string {
+    if (!imagePath) return 'assets/placeholder.png';
+    if (imagePath.startsWith('http')) return imagePath;
+    return `${this.hostUrl}${imagePath.startsWith('/') ? '' : '/'}${imagePath}`;
+  }
 
   getAllProducts(): Observable<any> {
     return this.http.get(this.baseUrl);
@@ -32,5 +39,11 @@ export class ProductService {
 
   getProductById(id: number): Observable<any> {
     return this.http.get(`${this.baseUrl}/${id}`);
+  }
+
+  uploadImage(file: File): Observable<{url: string}> {
+    const formData = new FormData();
+    formData.append('file', file);
+    return this.http.post<{url: string}>(`${this.baseUrl}/upload-image`, formData);
   }
 }

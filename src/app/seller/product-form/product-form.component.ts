@@ -17,7 +17,7 @@ export class ProductFormComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private productService: ProductService,
+    public productService: ProductService,
     private route: ActivatedRoute,
     private router: Router,
     private snackBar: MatSnackBar
@@ -33,6 +33,25 @@ export class ProductFormComponent implements OnInit {
   }
 
   imageUrl: string = '';
+
+  onFileSelected(event: any) {
+    const file: File = event.target.files[0];
+    if (file) {
+      this.loading = true;
+      this.productService.uploadImage(file).subscribe({
+        next: (response) => {
+          const currentImages = this.productForm.get('images')?.value || [];
+          this.productForm.get('images')?.setValue([...currentImages, response.url]);
+          this.loading = false;
+          this.snackBar.open('Image uploaded', 'Close', { duration: 2000 });
+        },
+        error: () => {
+          this.snackBar.open('Error uploading image', 'Close', { duration: 3000 });
+          this.loading = false;
+        }
+      });
+    }
+  }
 
   addImage() {
     if (this.imageUrl) {

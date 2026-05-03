@@ -30,19 +30,30 @@
 
         <div class="image-section">
           <h3>Product Images</h3>
-          <div class="image-input">
-            <mat-form-field appearance="outline" class="full-width">
-              <mat-label>Image URL</mat-label>
-              <input matInput [(ngModel)]="imageUrl" [ngModelOptions]="{standalone: true}" placeholder="Enter image URL">
-              <button mat-icon-button matSuffix (click)="addImage()" type="button" [disabled]="!imageUrl">
-                <mat-icon>add</mat-icon>
+          
+          <div class="image-upload-controls">
+            <div class="upload-btn-wrapper">
+              <button mat-stroked-button type="button" (click)="fileInput.click()">
+                <mat-icon>upload</mat-icon>
+                UPLOAD PHOTO
               </button>
-            </mat-form-field>
+              <input #fileInput type="file" (change)="onFileSelected($event)" style="display:none" accept="image/*">
+            </div>
+
+            <div class="image-url-input">
+              <mat-form-field appearance="outline" class="full-width">
+                <mat-label>Or enter Image URL</mat-label>
+                <input matInput [(ngModel)]="imageUrl" [ngModelOptions]="{standalone: true}" placeholder="Enter image URL">
+                <button mat-icon-button matSuffix (click)="addImage()" type="button" [disabled]="!imageUrl">
+                  <mat-icon>add</mat-icon>
+                </button>
+              </mat-form-field>
+            </div>
           </div>
           
           <div class="image-gallery" *ngIf="productForm.get('images')?.value?.length > 0">
             <div class="image-thumb" *ngFor="let img of productForm.get('images')?.value; let i = index">
-              <img [src]="img" alt="Product Image">
+              <img [src]="productService.getImageUrl(img)" alt="Product Image">
               <button mat-icon-button color="warn" class="remove-btn" (click)="removeImage(i)" type="button">
                 <mat-icon>delete</mat-icon>
               </button>

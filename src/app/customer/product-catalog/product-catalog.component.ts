@@ -13,7 +13,7 @@ export class ProductCatalogComponent implements OnInit {
   loading = false;
 
   constructor(
-    private productService: ProductService, 
+    public productService: ProductService, 
     private cartService: CartService,
     private snackBar: MatSnackBar
   ) {}

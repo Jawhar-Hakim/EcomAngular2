@@ -11,7 +11,10 @@ export class ProductListComponent implements OnInit {
   products: any[] = [];
   loading = false;
 
-  constructor(private productService: ProductService, private snackBar: MatSnackBar) {}
+  constructor(
+    public productService: ProductService,
+    private snackBar: MatSnackBar
+  ) { }
 
   ngOnInit(): void {
     this.loadProducts();
