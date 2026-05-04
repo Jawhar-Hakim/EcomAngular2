@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class OrderService {
   private baseUrl = 'http://localhost:8080/api/orders';
@@ -23,7 +23,16 @@ export class OrderService {
   }
 
   updateOrderStatus(orderId: number, status: string): Observable<any> {
-    return this.http.put(`${this.baseUrl}/${orderId}/status?status=${status}`, {});
+    return this.http.put(
+      `${this.baseUrl}/${orderId}/status?status=${status}`,
+      {},
+    );
+  }
+
+  getOrderStatus(orderId: number): Observable<string> {
+    return this.http.get(`${this.baseUrl}/${orderId}/status`, {
+      responseType: 'text',
+    });
   }
 
   cancelOrder(orderId: number): Observable<any> {

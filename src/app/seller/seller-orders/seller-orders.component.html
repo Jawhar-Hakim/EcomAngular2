@@ -49,7 +49,7 @@
         <ng-container matColumnDef="actions">
           <th mat-header-cell *matHeaderCellDef> Actions </th>
           <td mat-cell *matCellDef="let order">
-            <ng-container *ngIf="order.status === 'PENDING'">
+            <ng-container *ngIf="order.status === 'PENDING'||order.status === 'CONFIRMED'||order.status === 'PAID'||order.status === 'PROCESSING'||order.status === 'SHIPPED'">
               <button mat-icon-button color="primary" (click)="confirmOrder(order.id)" title="Confirm Order">
                 <mat-icon>check_circle</mat-icon>
               </button>

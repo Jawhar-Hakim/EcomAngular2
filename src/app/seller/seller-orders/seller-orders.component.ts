@@ -5,16 +5,23 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 @Component({
   selector: 'app-seller-orders',
   templateUrl: './seller-orders.component.html',
-  styleUrls: ['./seller-orders.component.css']
+  styleUrls: ['./seller-orders.component.css'],
 })
 export class SellerOrdersComponent implements OnInit {
   orders: any[] = [];
   loading = true;
-  displayedColumns: string[] = ['orderNumber', 'customer', 'date', 'total', 'status', 'actions'];
+  displayedColumns: string[] = [
+    'orderNumber',
+    'customer',
+    'date',
+    'total',
+    'status',
+    'actions',
+  ];
 
   constructor(
     private orderService: OrderService,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
   ) {}
 
   ngOnInit(): void {
@@ -32,19 +39,78 @@ export class SellerOrdersComponent implements OnInit {
         console.error('Error loading orders', err);
         this.snackBar.open('Error loading orders', 'Close', { duration: 3000 });
         this.loading = false;
-      }
+      },
     });
   }
 
   confirmOrder(id: number): void {
-    this.orderService.updateOrderStatus(id, 'CONFIRMED').subscribe({
-      next: () => {
-        this.snackBar.open('Order confirmed', 'Close', { duration: 2000 });
-        this.loadOrders();
-      },
-      error: (err) => {
-        console.error('Error confirming order', err);
-        this.snackBar.open('Error confirming order', 'Close', { duration: 3000 });
+    this.orderService.getOrderStatus(id).subscribe((status) => {
+      if (status == 'PENDING') {
+        this.orderService.updateOrderStatus(id, 'CONFIRMED').subscribe({
+          next: () => {
+            this.snackBar.open('Order confirmed', 'Close', { duration: 2000 });
+            this.loadOrders();
+          },
+          error: (err) => {
+            console.error('Error confirming order', err);
+            this.snackBar.open('Error confirming order', 'Close', {
+              duration: 3000,
+            });
+          },
+        });
+      } else if(status == "CONFIRMED") {
+        console.log(status)
+        this.orderService.updateOrderStatus(id, "PAID").subscribe({
+          next: () => {
+            this.snackBar.open('Order confirmed', 'Close', { duration: 2000 });
+            this.loadOrders();
+          },
+          error: (err) => {
+            console.error('Error confirming order', err);
+            this.snackBar.open('Error confirming order', 'Close', {
+              duration: 3000,
+            });
+          },
+        });
+      } else if(status == "PAID") {
+        this.orderService.updateOrderStatus(id, 'PROCESSING').subscribe({
+          next: () => {
+            this.snackBar.open('Order confirmed', 'Close', { duration: 2000 });
+            this.loadOrders();
+          },
+          error: (err) => {
+            console.error('Error confirming order', err);
+            this.snackBar.open('Error confirming order', 'Close', {
+              duration: 3000,
+            });
+          },
+        });
+      } else if (status == "PROCESSING"){
+        this.orderService.updateOrderStatus(id, 'SHIPPED').subscribe({
+          next: () => {
+            this.snackBar.open('Order confirmed', 'Close', { duration: 2000 });
+            this.loadOrders();
+          },
+          error: (err) => {
+            console.error('Error confirming order', err);
+            this.snackBar.open('Error confirming order', 'Close', {
+              duration: 3000,
+            });
+          },
+        });
+      } else if(status == "SHIPPED"){
+        this.orderService.updateOrderStatus(id, 'DELIVERED').subscribe({
+          next: () => {
+            this.snackBar.open('Order confirmed', 'Close', { duration: 2000 });
+            this.loadOrders();
+          },
+          error: (err) => {
+            console.error('Error confirming order', err);
+            this.snackBar.open('Error confirming order', 'Close', {
+              duration: 3000,
+            });
+          },
+        });
       }
     });
   }
@@ -58,20 +124,28 @@ export class SellerOrdersComponent implements OnInit {
         },
         error: (err) => {
           console.error('Error rejecting order', err);
-          this.snackBar.open('Error rejecting order', 'Close', { duration: 3000 });
-        }
+          this.snackBar.open('Error rejecting order', 'Close', {
+            duration: 3000,
+          });
+        },
       });
     }
   }
 
   getStatusColor(status: string): string {
     switch (status) {
-      case 'PENDING': return 'accent';
-      case 'CONFIRMED': return 'primary';
-      case 'SHIPPED': return 'primary';
-      case 'DELIVERED': return 'primary';
-      case 'CANCELLED': return 'warn';
-      default: return '';
+      case 'PENDING':
+        return 'accent';
+      case 'CONFIRMED':
+        return 'primary';
+      case 'SHIPPED':
+        return 'primary';
+      case 'DELIVERED':
+        return 'primary';
+      case 'CANCELLED':
+        return 'warn';
+      default:
+        return '';
     }
   }
 }
