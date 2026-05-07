@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class CouponService {
-  private baseUrl = 'http://localhost:8080/api/coupons';
+  private baseUrl = 'https://springboot-backend-1-zfa4.onrender.com/api/coupons';
 
   constructor(private http: HttpClient) {}
 

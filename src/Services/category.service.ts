@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class CategoryService {
-  private baseUrl = 'http://localhost:8080/api/categories';
+  private baseUrl = 'https://springboot-backend-1-zfa4.onrender.com/api/categories';
 
   constructor(private http: HttpClient) {}
 

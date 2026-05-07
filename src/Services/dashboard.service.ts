@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class DashboardService {
-  private baseUrl = 'http://localhost:8080/api/dashboard';
+  private baseUrl = 'https://springboot-backend-1-zfa4.onrender.com/api/dashboard';
 
   constructor(private http: HttpClient) {}
 

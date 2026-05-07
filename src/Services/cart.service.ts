@@ -6,7 +6,7 @@ import { BehaviorSubject, Observable, tap } from 'rxjs';
   providedIn: 'root'
 })
 export class CartService {
-  private baseUrl = 'http://localhost:8080/api/cart';
+  private baseUrl = 'https://springboot-backend-1-zfa4.onrender.com/api/cart';
   private cartSubject = new BehaviorSubject<any>(null);
   public cart$ = this.cartSubject.asObservable();
 

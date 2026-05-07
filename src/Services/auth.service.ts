@@ -9,7 +9,7 @@ import { User, AuthResponse, Role } from '../models/user.model';
 export class AuthService {
   private currentUserSubject: BehaviorSubject<User | null>;
   public currentUser: Observable<User | null>;
-  private baseUrl = 'http://localhost:8080/api/auth';
+  private baseUrl = 'https://springboot-backend-1-zfa4.onrender.com/api/auth';
 
   constructor(private http: HttpClient) {
     const savedUser = localStorage.getItem('currentUser');
