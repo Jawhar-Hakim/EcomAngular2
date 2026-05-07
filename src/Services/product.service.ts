@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class ProductService {
   private baseUrl = 'https://springboot-backend-1-zfa4.onrender.com/api/products';
-  private hostUrl = 'http://localhost:8080';
+  private hostUrl = 'https://springboot-backend-1-zfa4.onrender.com';
 
   constructor(private http: HttpClient) {}
 
