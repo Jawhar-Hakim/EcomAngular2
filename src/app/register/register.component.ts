@@ -13,6 +13,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class RegisterComponent implements OnInit {
   registerForm: FormGroup;
   loading = false;
+  hidePassword = true;
   roles = Object.values(Role);
 
   constructor(

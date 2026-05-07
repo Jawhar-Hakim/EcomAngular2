@@ -23,6 +23,8 @@ import { SellerOrdersComponent } from './seller/seller-orders/seller-orders.comp
 import { CustomerOrdersComponent } from './customer/customer-orders/customer-orders.component';
 import { CategoryManagementComponent } from './admin/category-management/category-management.component';
 import { CouponManagementComponent } from './admin/coupon-management/coupon-management.component';
+import { AdminDashboardComponent } from './admin/dashboard/dashboard.component';
+import { NgChartsModule } from 'ng2-charts';
 
 @NgModule({
   declarations: [
@@ -40,7 +42,8 @@ import { CouponManagementComponent } from './admin/coupon-management/coupon-mana
     SellerOrdersComponent,
     CustomerOrdersComponent,
     CategoryManagementComponent,
-    CouponManagementComponent
+    CouponManagementComponent,
+    AdminDashboardComponent
   ],
   imports: [
     BrowserModule,
@@ -50,7 +53,8 @@ import { CouponManagementComponent } from './admin/coupon-management/coupon-mana
     ReactiveFormsModule,
     BrowserAnimationsModule,
     MaterialModule,
-    MatTableModule
+    MatTableModule,
+    NgChartsModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true }

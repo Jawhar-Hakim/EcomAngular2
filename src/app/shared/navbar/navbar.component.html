@@ -1,41 +1,49 @@
-<mat-toolbar color="primary">
-  <span>E-Commerce</span>
+<mat-toolbar color="primary" class="navbar-toolbar">
+  <div class="navbar-brand" routerLink="/home">
+    <mat-icon class="brand-icon">shopping_bag</mat-icon>
+    <span>ECOMMERCE</span>
+  </div>
+  
   <span class="spacer"></span>
   
-  <button mat-button routerLink="/home">Home</button>
+  <div class="nav-links">
+    <button mat-button routerLink="/home" routerLinkActive="active-link">Home</button>
 
-  <ng-container *ngIf="authService.currentUser | async as user">
-    <button mat-button *ngIf="isSeller$ | async" routerLink="/seller/products">My Products</button>
-    <button mat-button *ngIf="isSeller$ | async" routerLink="/seller/orders">Orders</button>
-    <button mat-button *ngIf="isCustomer$ | async" routerLink="/customer/catalog">Shop</button>
-    <button mat-button *ngIf="isCustomer$ | async" routerLink="/customer/orders">My Orders</button>
-    <button mat-button *ngIf="isCustomer$ | async" routerLink="/customer/cart">
-      <mat-icon [matBadge]="cartItemCount$ | async" matBadgeColor="warn">shopping_cart</mat-icon>
-    </button>
-    <button mat-button *ngIf="isAdmin$ | async" routerLink="/admin/users">Users</button>
-    <button mat-button *ngIf="isAdmin$ | async" routerLink="/admin/categories">Categories</button>
-    <button mat-button *ngIf="isAdmin$ | async" routerLink="/admin/coupons">Coupons</button>
-  </ng-container>
-  
-  <ng-container *ngIf="!(authService.currentUser | async); else loggedIn">
-    <button mat-button routerLink="/login">Login</button>
-    <button mat-button routerLink="/register">Register</button>
-  </ng-container>
+    <ng-container *ngIf="authService.currentUser | async as user">
+      <button mat-button *ngIf="isSeller$ | async" routerLink="/seller/products" routerLinkActive="active-link">My Products</button>
+      <button mat-button *ngIf="isSeller$ | async" routerLink="/seller/orders" routerLinkActive="active-link">Orders</button>
+      <button mat-button *ngIf="isCustomer$ | async" routerLink="/customer/catalog" routerLinkActive="active-link">Shop</button>
+      <button mat-button *ngIf="isCustomer$ | async" routerLink="/customer/orders" routerLinkActive="active-link">My Orders</button>
+      <button mat-icon-button *ngIf="isCustomer$ | async" routerLink="/customer/cart" routerLinkActive="active-link" class="cart-btn">
+        <mat-icon [matBadge]="cartItemCount$ | async" matBadgeColor="warn">shopping_cart</mat-icon>
+      </button>
+      <button mat-button *ngIf="isAdmin$ | async" routerLink="/admin/dashboard" routerLinkActive="active-link">Dashboard</button>
+      <button mat-button *ngIf="isAdmin$ | async" routerLink="/admin/users" routerLinkActive="active-link">Users</button>
+      <button mat-button *ngIf="isAdmin$ | async" routerLink="/admin/categories" routerLinkActive="active-link">Categories</button>
+      <button mat-button *ngIf="isAdmin$ | async" routerLink="/admin/coupons" routerLinkActive="active-link">Coupons</button>
+    </ng-container>
+    
+    <ng-container *ngIf="!(authService.currentUser | async); else loggedIn">
+      <button mat-raised-button color="accent" routerLink="/login" class="login-btn">Login</button>
+      <button mat-button routerLink="/register">Register</button>
+    </ng-container>
 
-  <ng-template #loggedIn>
-    <button mat-button [matMenuTriggerFor]="menu">
-      <mat-icon>person</mat-icon>
-      {{ (authService.currentUser | async)?.firstName }}
-    </button>
-    <mat-menu #menu="matMenu">
-      <button mat-menu-item routerLink="/user">
-        <mat-icon>account_circle</mat-icon>
-        <span>Profile</span>
+    <ng-template #loggedIn>
+      <button mat-button [matMenuTriggerFor]="menu" class="user-profile-btn">
+        <mat-icon>person</mat-icon>
+        <span class="user-name">{{ (authService.currentUser | async)?.firstName }}</span>
       </button>
-      <button mat-menu-item (click)="logout()">
-        <mat-icon>exit_to_app</mat-icon>
-        <span>Logout</span>
-      </button>
-    </mat-menu>
-  </ng-template>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item routerLink="/user">
+          <mat-icon>account_circle</mat-icon>
+          <span>Profile</span>
+        </button>
+        <mat-divider></mat-divider>
+        <button mat-menu-item (click)="logout()">
+          <mat-icon>exit_to_app</mat-icon>
+          <span>Logout</span>
+        </button>
+      </mat-menu>
+    </ng-template>
+  </div>
 </mat-toolbar>

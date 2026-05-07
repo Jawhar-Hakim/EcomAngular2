@@ -1,9 +1,70 @@
-.spacer {
-  flex: 1 1 auto;
-}
-
-mat-toolbar {
+.navbar-toolbar {
   position: sticky;
   top: 0;
   z-index: 1000;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  padding: 0 2rem;
+}
+
+.navbar-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.navbar-brand:hover {
+  opacity: 0.8;
+}
+
+.brand-icon {
+  font-size: 28px;
+  width: 28px;
+  height: 28px;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.active-link {
+  background: rgba(255, 255, 255, 0.1);
+  border-bottom: 2px solid white;
+  border-radius: 0 !important;
+}
+
+.login-btn {
+  margin-left: 1rem;
+  font-weight: 600;
+}
+
+.user-profile-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.user-name {
+  max-width: 100px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.cart-btn {
+  margin: 0 0.5rem;
+}
+
+@media (max-width: 768px) {
+  .user-name {
+    display: none;
+  }
+  .nav-links button:not(.cart-btn):not(.user-profile-btn) {
+    display: none;
+  }
 }

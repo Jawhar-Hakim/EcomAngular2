@@ -1,55 +1,79 @@
-<div class="container">
-  <h1>Product Catalog</h1>
-  
-  <div class="filters-container">
-    <mat-form-field appearance="outline">
-      <mat-label>Search</mat-label>
-      <input matInput [(ngModel)]="filters.keyword" (ngModelChange)="onFilterChange()" placeholder="Search products...">
-      <mat-icon matSuffix>search</mat-icon>
-    </mat-form-field>
-
-    <mat-form-field appearance="outline">
-      <mat-label>Category</mat-label>
-      <mat-select [(ngModel)]="filters.categoryId" (selectionChange)="onFilterChange()">
-        <mat-option [value]="null">All Categories</mat-option>
-        <mat-option *ngFor="let cat of categories" [value]="cat.id">
-          {{cat.name}}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
-
-    <mat-form-field appearance="outline">
-      <mat-label>Min Price</mat-label>
-      <input matInput type="number" [(ngModel)]="filters.minPrice" (ngModelChange)="onFilterChange()">
-      <span matPrefix>$&nbsp;</span>
-    </mat-form-field>
-
-    <mat-form-field appearance="outline">
-      <mat-label>Max Price</mat-label>
-      <input matInput type="number" [(ngModel)]="filters.maxPrice" (ngModelChange)="onFilterChange()">
-      <span matPrefix>$&nbsp;</span>
-    </mat-form-field>
+<div class="container catalog-container">
+  <div class="catalog-header">
+    <h1>Our Products</h1>
+    <p>Find the best items curated just for you.</p>
   </div>
+  
+  <mat-card class="filters-card">
+    <div class="filters-container">
+      <mat-form-field appearance="outline" class="search-field">
+        <mat-label>Search products</mat-label>
+        <input matInput [(ngModel)]="filters.keyword" (ngModelChange)="onFilterChange()" placeholder="e.g. Laptop, Shirt...">
+        <mat-icon matSuffix>search</mat-icon>
+      </mat-form-field>
 
-  <mat-spinner *ngIf="loading"></mat-spinner>
+      <mat-form-field appearance="outline">
+        <mat-label>Category</mat-label>
+        <mat-select [(ngModel)]="filters.categoryId" (selectionChange)="onFilterChange()">
+          <mat-option [value]="null">All Categories</mat-option>
+          <mat-option *ngFor="let cat of categories" [value]="cat.id">
+            {{cat.name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <div class="price-range">
+        <mat-form-field appearance="outline">
+          <mat-label>Min Price</mat-label>
+          <input matInput type="number" [(ngModel)]="filters.minPrice" (ngModelChange)="onFilterChange()">
+          <span matPrefix>$&nbsp;</span>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Max Price</mat-label>
+          <input matInput type="number" [(ngModel)]="filters.maxPrice" (ngModelChange)="onFilterChange()">
+          <span matPrefix>$&nbsp;</span>
+        </mat-form-field>
+      </div>
+    </div>
+  </mat-card>
+
+  <div *ngIf="loading" class="loading-container">
+    <mat-spinner diameter="50"></mat-spinner>
+    <p>Loading products...</p>
+  </div>
 
   <div class="product-grid" *ngIf="!loading">
     <mat-card *ngFor="let product of products" class="product-card">
-      <img mat-card-image [src]="productService.getImageUrl(product.images?.[0]) || 'assets/placeholder.png'" alt="{{product.name}}">
+      <div class="product-image-container">
+        <img [src]="productService.getImageUrl(product.images?.[0]) || 'assets/placeholder.png'" alt="{{product.name}}">
+        <div class="product-badge" *ngIf="product.stock > 0 && product.stock < 5">Only {{product.stock}} left!</div>
+      </div>
+      
       <mat-card-header>
         <mat-card-title>{{product.name}}</mat-card-title>
-        <mat-card-subtitle>{{product.price | currency}}</mat-card-subtitle>
+        <mat-card-subtitle class="product-price">{{product.price | currency}}</mat-card-subtitle>
       </mat-card-header>
+
       <mat-card-content>
         <p class="description">{{product.description}}</p>
-        <p *ngIf="product.stock > 0">In Stock: {{product.stock}}</p>
-        <p *ngIf="product.stock <= 0" class="out-of-stock">Out of Stock</p>
       </mat-card-content>
+
+      <mat-divider></mat-divider>
+
       <mat-card-actions align="end">
-        <button mat-raised-button color="accent" (click)="addToCart(product)" [disabled]="product.stock <= 0">
-          <mat-icon>add_shopping_cart</mat-icon> ADD TO CART
+        <button mat-flat-button color="accent" (click)="addToCart(product)" [disabled]="product.stock <= 0">
+          <mat-icon>shopping_cart</mat-icon>
+          {{ product.stock <= 0 ? 'OUT OF STOCK' : 'ADD TO CART' }}
         </button>
       </mat-card-actions>
     </mat-card>
+  </div>
+
+  <div class="no-results" *ngIf="!loading && products.length === 0">
+    <mat-icon>search_off</mat-icon>
+    <h3>No products found</h3>
+    <p>Try adjusting your search or category filters.</p>
+    <button mat-button color="primary" (click)="filters = {keyword: '', categoryId: null, minPrice: null, maxPrice: null}; onFilterChange()">Clear All Filters</button>
   </div>
 </div>

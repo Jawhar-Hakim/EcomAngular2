@@ -1,46 +1,67 @@
-<div class="container" *ngIf="currentUser$ | async as user; else notLoggedIn">
-  <mat-card class="profile-card">
-    <mat-card-header>
-      <div mat-card-avatar class="avatar-icon">
-        <mat-icon color="primary">account_circle</mat-icon>
+<div class="profile-wrapper" *ngIf="currentUser$ | async as user; else notLoggedIn">
+  <div class="container">
+    <mat-card class="profile-card">
+      <div class="profile-header">
+        <div class="avatar-large">
+          <mat-icon>account_circle</mat-icon>
+        </div>
+        <h1>{{user.firstName}} {{user.lastName}}</h1>
+        <span class="role-badge">{{user.role | titlecase}}</span>
       </div>
-      <mat-card-title>{{user.firstName}} {{user.lastName}}</mat-card-title>
-      <mat-card-subtitle>{{user.role}}</mat-card-subtitle>
-    </mat-card-header>
-    <mat-card-content>
-      <mat-list>
-        <mat-list-item>
-          <mat-icon matListItemIcon>email</mat-icon>
-          <div matListItemTitle>Email</div>
-          <div matListItemLine>{{user.email}}</div>
-        </mat-list-item>
-        <mat-list-item>
-          <mat-icon matListItemIcon>event</mat-icon>
-          <div matListItemTitle>Member Since</div>
-          <div matListItemLine>{{user.createdAt | date:'mediumDate'}}</div>
-        </mat-list-item>
-        <mat-list-item>
-          <mat-icon matListItemIcon>verified_user</mat-icon>
-          <div matListItemTitle>Status</div>
-          <div matListItemLine>{{user.active ? 'Active Account' : 'Inactive'}}</div>
-        </mat-list-item>
-      </mat-list>
-    </mat-card-content>
-    <mat-card-actions align="end">
-      <button mat-button color="warn" (click)="logout()">LOGOUT</button>
-    </mat-card-actions>
-  </mat-card>
+      
+      <mat-card-content>
+        <div class="profile-details">
+          <div class="detail-item">
+            <mat-icon>email</mat-icon>
+            <div class="detail-text">
+              <label>Email Address</label>
+              <p>{{user.email}}</p>
+            </div>
+          </div>
+          
+          <div class="detail-item">
+            <mat-icon>event</mat-icon>
+            <div class="detail-text">
+              <label>Member Since</label>
+              <p>{{user.createdAt | date:'longDate'}}</p>
+            </div>
+          </div>
+          
+          <div class="detail-item">
+            <mat-icon>verified_user</mat-icon>
+            <div class="detail-text">
+              <label>Account Status</label>
+              <p [class.status-active]="user.active">{{user.active ? 'Active' : 'Inactive'}}</p>
+            </div>
+          </div>
+        </div>
+      </mat-card-content>
+      
+      <mat-divider></mat-divider>
+      
+      <mat-card-actions align="end">
+        <button mat-stroked-button color="warn" (click)="logout()">
+          <mat-icon>exit_to_app</mat-icon>
+          LOGOUT
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
 </div>
 
 <ng-template #notLoggedIn>
-  <div class="container">
-    <mat-card class="profile-card">
-      <mat-card-content>
-        <p>Please login to view your profile.</p>
-      </mat-card-content>
-      <mat-card-actions>
-        <button mat-raised-button color="primary" routerLink="/login">LOGIN</button>
-      </mat-card-actions>
-    </mat-card>
+  <div class="profile-wrapper">
+    <div class="container">
+      <mat-card class="profile-card text-center">
+        <mat-card-content>
+          <mat-icon class="large-icon">lock</mat-icon>
+          <h3>Access Denied</h3>
+          <p>Please login to view your profile information.</p>
+        </mat-card-content>
+        <mat-card-actions align="start">
+          <button mat-raised-button color="primary" routerLink="/login">GOTO LOGIN</button>
+        </mat-card-actions>
+      </mat-card>
+    </div>
   </div>
 </ng-template>

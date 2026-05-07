@@ -15,6 +15,7 @@ import { HomeComponent } from './home/home.component';
 import { UserManagementComponent } from './admin/user-management/user-management.component';
 import { CategoryManagementComponent } from "./admin/category-management/category-management.component";
 import { CouponManagementComponent } from "./admin/coupon-management/coupon-management.component";
+import { AdminDashboardComponent } from './admin/dashboard/dashboard.component';
 
 import { SellerOrdersComponent } from './seller/seller-orders/seller-orders.component';
 
@@ -22,6 +23,10 @@ const routes: Routes = [
   {
     path: 'home',
     component: HomeComponent
+  },
+  {
+    path: 'admin/dashboard',
+    component: AdminDashboardComponent
   },
   {
     path: 'admin/users',

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/Services/auth.service';
-import { DashboardService } from '../Services/dashboard.service';
+import { DashboardService } from '../../Services/dashboard.service';
 import { Role, User } from '../../models/user.model';
 
 @Component({

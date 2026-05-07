@@ -1,0 +1,93 @@
+<div class="container dashboard-wrapper">
+  <div class="header-section">
+    <h1>Admin Analytics Dashboard</h1>
+    <p>Comprehensive overview of platform performance and user activity.</p>
+  </div>
+
+  <div *ngIf="loading" class="loading-overlay">
+    <mat-spinner diameter="60"></mat-spinner>
+    <p>Calculating latest metrics...</p>
+  </div>
+
+  <div *ngIf="!loading && stats" class="dashboard-content">
+    <!-- Top Stats Cards -->
+    <div class="stats-row">
+      <mat-card class="mini-stat-card primary">
+        <mat-icon>people</mat-icon>
+        <div class="stat-values">
+          <h3>{{ stats.totalUsers }}</h3>
+          <p>Total Users</p>
+        </div>
+      </mat-card>
+      <mat-card class="mini-stat-card accent">
+        <mat-icon>shopping_bag</mat-icon>
+        <div class="stat-values">
+          <h3>{{ stats.totalOrders }}</h3>
+          <p>Total Orders</p>
+        </div>
+      </mat-card>
+      <mat-card class="mini-stat-card success">
+        <mat-icon>payments</mat-icon>
+        <div class="stat-values">
+          <h3>{{ stats.totalRevenue | currency }}</h3>
+          <p>Total Revenue</p>
+        </div>
+      </mat-card>
+    </div>
+
+    <!-- Charts Grid -->
+    <div class="charts-grid">
+      <!-- Revenue Line Chart -->
+      <mat-card class="chart-card line-chart-container">
+        <mat-card-header>
+          <mat-card-title>Revenue Over Time</mat-card-title>
+          <mat-card-subtitle>Daily income tracked across the platform</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+          <div class="chart-wrapper">
+            <canvas baseChart
+              [data]="lineChartData"
+              [options]="lineChartOptions"
+              [type]="lineChartType">
+            </canvas>
+          </div>
+        </mat-card-content>
+      </mat-card>
+
+      <!-- User Distribution Pie Chart -->
+      <mat-card class="chart-card">
+        <mat-card-header>
+          <mat-card-title>User Distribution</mat-card-title>
+          <mat-card-subtitle>Ratio of Customers vs Sellers</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+          <div class="chart-wrapper pie-wrapper">
+            <canvas baseChart
+              [data]="pieChartData"
+              [options]="pieChartOptions"
+              [type]="pieChartType">
+            </canvas>
+          </div>
+        </mat-card-content>
+      </mat-card>
+
+      <!-- Product Sales Polar Area Chart -->
+      <mat-card class="chart-card">
+        <mat-card-header>
+          <mat-card-title>Top Selling Products</mat-card-title>
+          <mat-card-subtitle>Sales volume by product name</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+          <div class="chart-wrapper">
+            <canvas baseChart
+              [data]="polarAreaChartData"
+              [options]="polarAreaChartOptions"
+              [legend]="polarAreaLegend"
+              [type]="polarAreaChartType">
+            </canvas>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+</div>

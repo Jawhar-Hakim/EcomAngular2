@@ -1,4 +1,69 @@
 /* You can add global styles to this file, and also import other style files */
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+:root {
+  --primary-color: #3f51b5;
+  --accent-color: #ff4081;
+  --bg-color: #f5f7fa;
+  --text-color: #333;
+  --card-bg: #ffffff;
+  --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  --border-radius: 8px;
+}
+
+html, body { 
+  height: 100%; 
+  background-color: var(--bg-color);
+}
+
+body { 
+  margin: 0; 
+  font-family: 'Poppins', Roboto, "Helvetica Neue", sans-serif; 
+  color: var(--text-color);
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.m-1 { margin: 1rem; }
+.mt-1 { margin-top: 1rem; }
+.mb-1 { margin-bottom: 1rem; }
+.p-1 { padding: 1rem; }
+
+mat-card {
+  border-radius: var(--border-radius) !important;
+  box-shadow: var(--shadow) !important;
+}
+
+main {
+  min-height: calc(100vh - 64px);
+  padding-bottom: 2rem;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}

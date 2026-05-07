@@ -1,21 +1,113 @@
-.container {
-  display: flex;
-  justify-content: center;
-  padding: 40px 20px;
+.profile-wrapper {
+  padding: 4rem 2rem;
+  background-color: var(--bg-color);
+  min-height: calc(100vh - 64px);
 }
 
 .profile-card {
-  width: 100%;
-  max-width: 500px;
+  max-width: 600px;
+  margin: 0 auto;
+  overflow: hidden;
 }
 
-.avatar-icon mat-icon {
-  font-size: 40px;
-  width: 40px;
-  height: 40px;
+.profile-header {
+  background: linear-gradient(135deg, var(--primary-color) 0%, #1a237e 100%);
+  color: white;
+  padding: 3rem 2rem;
+  text-align: center;
+  position: relative;
 }
 
-mat-list-item {
-  height: auto !important;
-  margin-bottom: 8px;
+.avatar-large {
+  width: 100px;
+  height: 100px;
+  background: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1.5rem;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+.avatar-large mat-icon {
+  font-size: 80px;
+  width: 80px;
+  height: 80px;
+  color: var(--primary-color);
+}
+
+.profile-header h1 {
+  margin: 0;
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.role-badge {
+  display: inline-block;
+  background: rgba(255, 255, 255, 0.2);
+  padding: 4px 16px;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  margin-top: 0.5rem;
+  backdrop-filter: blur(5px);
+}
+
+.profile-details {
+  padding: 2rem;
+}
+
+.detail-item {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.detail-item:last-child {
+  margin-bottom: 0;
+}
+
+.detail-item mat-icon {
+  color: var(--primary-color);
+  font-size: 28px;
+  width: 28px;
+  height: 28px;
+}
+
+.detail-text label {
+  display: block;
+  font-size: 0.8rem;
+  color: #888;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 2px;
+}
+
+.detail-text p {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: #333;
+}
+
+.status-active {
+  color: #4caf50 !important;
+}
+
+mat-card-actions {
+  padding: 1.5rem 2rem !important;
+}
+
+.text-center {
+  text-align: center;
+  padding: 3rem;
+}
+
+.large-icon {
+  font-size: 64px;
+  width: 64px;
+  height: 64px;
+  color: #ccc;
+  margin-bottom: 1.5rem;
 }
